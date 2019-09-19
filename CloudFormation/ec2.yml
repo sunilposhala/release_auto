@@ -1,0 +1,14 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+Parameters:
+  InstanceType:
+    Description: 'ec2 instance type'
+    Type: String
+    Default: t2.micro
+Resources:
+  EC2Instances:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: !Ref InstanceType 
+      ImageId:  ami-0cb0e70f44e1a4bb5 
+      KeyName: testAmar
