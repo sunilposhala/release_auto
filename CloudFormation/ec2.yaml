@@ -6,7 +6,7 @@ Parameters:
     Description: Name of an existing EC2 KeyPair to enable SSH access to the instance
     Type: String
     Default: LinusAutoVM
-  Linus-Auto-VM01name:
+  LinusAutoVM01name:
     Description: Name of the instance
     Type: String
     Default: Linus-Auto-VM01
@@ -32,9 +32,9 @@ Resources:
     Type: 'AWS::EC2::Instance'
     Properties:
       InstanceType: !Ref InstanceType
-       Tags:
+      Tags:
         - Key: Name
-          Value: !Ref 'Linus-Auto-VM01name'
+          Value: !Ref 'LinusAutoVM01name'
         - Key: ResourceGroup
           Value: LinusAutoRG
         - Key: Environment
