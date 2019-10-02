@@ -34,8 +34,8 @@ Parameters:
     Default: 0.0.0.0/0
   Environment:
     Type: String
-    AllowedValues: [ "PRD", "DEV"]
-    
+    AllowedValues:PRD,DEV
+
 Mappings:
   AWSInstanceType2Arch:
     t2.micro:
