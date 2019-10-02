@@ -34,7 +34,8 @@ Parameters:
     Default: 0.0.0.0/0
   Environment:
     Type: String
-    AllowedValues:PRD,DEV
+    AllowedValues: ['PRD','DEV']
+
 Mappings:
   AWSInstanceType2Arch:
     t2.micro:
@@ -42,6 +43,7 @@ Mappings:
   AWSRegionArch2AMI:
     eu-central-1:
       HVM64: ami-04cf43aca3e6f3de3
+
 Resources:
   VPC:
     Type: AWS::EC2::VPC
@@ -177,6 +179,7 @@ Resources:
           - AWSInstanceType2Arch
           - !Ref InstanceType
           - Arch
+          
 Outputs:
   VPC:
     Description: A reference to the created VPC
