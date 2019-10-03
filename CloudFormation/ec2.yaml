@@ -226,5 +226,5 @@ Outputs:
     Description: Public IP address of EC2 instance
     Value: !GetAtt 
       - EC2Instance
-      - PublicIPNetworkInterface
+
 
