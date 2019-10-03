@@ -164,7 +164,7 @@ Resources:
       SubnetId: !Ref PublicSubnet
       Tags: 
         - Key: Name
-          Value: LinusAutoVM01-psn
+          Value: LinusAutoVM01_psn
   EIPaddress:
     Type: 'AWS::EC2::EIP'
     Properties: 
