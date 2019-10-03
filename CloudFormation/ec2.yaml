@@ -34,7 +34,7 @@ Parameters:
     Default: 0.0.0.0/0
   Environment:
     Type: String
-    AllowedValues: 'PRD','DEV'
+    Default: DEV
 
 Mappings:
   AWSInstanceType2Arch:
