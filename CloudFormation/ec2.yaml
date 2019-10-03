@@ -160,7 +160,7 @@ Resources:
           Value: 'True'
         - Key: Region
           Value: eu-central-1
-      InstanceNetworkInterface:
+      NetworkInterface:
         AssociatePublicIpAddress: True
         NetworkInterfaceId: DEV-int
         PrivateIpAddress: 10.0.0.20
