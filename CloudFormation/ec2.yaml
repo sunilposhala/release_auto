@@ -168,7 +168,6 @@ Resources:
   EIPaddress:
     Type: AWS::EC2::EIP
     Properties: 
-      InstanceId: !Ref EC2Instance
       Domain: vpc
   EIPAssoc:
     Type: AWS::EC2::EIPAssociation
