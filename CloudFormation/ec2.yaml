@@ -47,8 +47,8 @@ Resources:
     Type: AWS::EC2::VPC
     Properties:
       CidrBlock: !Ref VpcCIDR
-      EnableDnsSupport: true
-      EnableDnsHostnames: true
+      #EnableDnsSupport: true
+      #EnableDnsHostnames: true
       Tags:
         - Key: Name
           Value: !Ref Environment
@@ -83,16 +83,16 @@ Resources:
       Tags:
         - Key: Name
           Value: !Sub ${Environment} Private Subnet (AZ1)
-  NatGatewayEIP:
-    Type: AWS::EC2::EIP
-    DependsOn: InternetGatewayAttachment
-    Properties:
-      Domain: vpc
-  NatGateway:
-    Type: AWS::EC2::NatGateway
-    Properties:
-      AllocationId: !GetAtt NatGatewayEIP.AllocationId
-      SubnetId: !Ref PublicSubnet
+  # NatGatewayEIP:
+  #   Type: AWS::EC2::EIP
+  #   DependsOn: InternetGatewayAttachment
+  #   Properties:
+  #     Domain: vpc
+  # NatGateway:
+  #   Type: AWS::EC2::NatGateway
+  #   Properties:
+  #     AllocationId: !GetAtt NatGatewayEIP.AllocationId
+  #     SubnetId: !Ref PublicSubnet
   PublicRouteTable:
     Type: AWS::EC2::RouteTable
     Properties:
@@ -124,7 +124,7 @@ Resources:
     Properties:
       RouteTableId: !Ref PrivateRouteTable
       DestinationCidrBlock: 0.0.0.0/0
-      NatGatewayId: !Ref NatGateway
+      #NatGatewayId: !Ref NatGateway
   PrivateSubnetRouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
@@ -186,9 +186,9 @@ Resources:
           Value: eu-central-1
       NetworkInterfaces:
         - NetworkInterfaceId: !Ref 'InstanceNetworkInterface'
-          DeviceIndex: '0'
+          #DeviceIndex: '0'
         - NetworkInterfaceId: !Ref 'InstanceNetworkInterface2'
-          DeviceIndex: '1'
+          #DeviceIndex: '1'
       KeyName: !Ref KeyName
       ImageId: !FindInMap 
         - AWSRegionArch2AMI
@@ -226,10 +226,6 @@ Outputs:
     Value: !GetAtt 
       - EC2Instance
       - PublicDnsName
-  PublicIP:
-    Description: Public IP address of EC2 instance
-    Value: !GetAtt 
-      - EC2Instance
-      - PublicIp
+  
 
 
