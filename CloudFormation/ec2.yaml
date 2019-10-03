@@ -173,6 +173,7 @@ Resources:
     Type: AWS::EC2::EIPAssociation
     Properties:
       EIP: !Ref EIPaddress
+      InstanceId: !Ref EC2Instance
       NetworkInterfaceId: !Ref 'InstanceNetworkInterface2'
   EC2Instance:
     Type: AWS::EC2::Instance
