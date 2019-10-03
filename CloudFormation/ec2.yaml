@@ -164,7 +164,7 @@ Resources:
       SubnetId: !Ref PublicSubnet
       Tags: 
         - Key: Name
-          Value: !Ref ''LinusAutoVM01name'-PIP'
+          Value: !Ref 'LinusAutoVM01name'
   EC2Instance:
     Type: 'AWS::EC2::Instance'
     Properties:
