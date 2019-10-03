@@ -175,7 +175,7 @@ Resources:
     Properties:
       InstanceId: !Ref 'EC2Instance'
       NetworkInterfaceId: !Ref 'InstanceNetworkInterface2'
-			EIP: !Ref 'EIPaddress'
+			AllocationId: !Ref 'EIPaddress'
   EC2Instance:
     Type: AWS::EC2::Instance
     Properties:
