@@ -148,13 +148,12 @@ Resources:
   InstanceNetworkInterface:
     Type: AWS::EC2::NetworkInterface
     Properties: 
-    InterfaceType: efa
-    PrivateIpAddress: 10.0.0.20
-    SourceDestCheck: True
-    SubnetId: !Ref PrivateSubnet
-    Tags: 
-      - Key: Name
-        Value: !Ref 'LinusAutoVM01name'
+      InterfaceType: efa
+      SourceDestCheck: True
+      SubnetId: !Ref PrivateSubnet
+      Tags: 
+        - Key: Name
+          Value: !Ref 'LinusAutoVM01name'
   EC2Instance:
     Type: 'AWS::EC2::Instance'
     Properties:
@@ -172,7 +171,6 @@ Resources:
           Value: eu-central-1
       NetworkInterfaces:
         AssociatePublicIpAddress: True
-        NetworkInterfaceId: DEV-int
         SubnetId: !Ref PublicSubnet
       SecurityGroups:
         - !Ref InstanceSecurityGroup
