@@ -217,14 +217,6 @@ Outputs:
     Value: !GetAtt 
       - EC2Instance
       - AvailabilityZone
-  PublicDNS:
-    Description: Public DNSName of EC2 instance
-    Value: !GetAtt 
-      - EC2Instance
-      - PublicDnsName
-  PublicIP:
-    Description: Public IP address of EC2 instance
-    Value: !GetAtt 
-      - EC2Instance
+  
 
 
