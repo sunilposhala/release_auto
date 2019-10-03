@@ -156,15 +156,15 @@ Resources:
           Value: !Ref 'LinusAutoVM01name'
   PublicIPNetworkInterface:
     Type: AWS::EC2::NetworkInterface
-      Properties:
-        GroupSet:
-          - !Ref: 'InstanceSecurityGroup'
-        AssociatePublicIpAddress: 'true'
-        DeleteOnTermination: 'true'
-        SubnetId: !Ref: PublicSubnet
-        Tags: 
-          - Key: Name
-            Value: !Ref ''LinusAutoVM01name'-PIP'
+    Properties:
+      GroupSet:
+        - !Ref: 'InstanceSecurityGroup'
+      AssociatePublicIpAddress: 'true'
+      DeleteOnTermination: 'true'
+      SubnetId: !Ref: PublicSubnet
+      Tags: 
+        - Key: Name
+          Value: !Ref ''LinusAutoVM01name'-PIP'
   EC2Instance:
     Type: 'AWS::EC2::Instance'
     Properties:
