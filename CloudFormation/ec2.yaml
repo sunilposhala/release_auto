@@ -145,6 +145,9 @@ Resources:
           FromPort: '22'
           ToPort: '22'
           CidrIp: !Ref SSHLocation
+      Tags:
+        - Key: Name
+          Value: !Ref 'LinusAutoVM01name'
   InstanceNetworkInterface:
     Type: AWS::EC2::NetworkInterface
     Properties: 
@@ -172,8 +175,6 @@ Resources:
           Value: 'True'
         - Key: Region
           Value: eu-central-1
-      SecurityGroups:
-        - !Ref 'InstanceSecurityGroup'
       NetworkInterfaces:
         - NetworkInterfaceId: !Ref 'InstanceNetworkInterface'
         - DeviceIndex: '0'
