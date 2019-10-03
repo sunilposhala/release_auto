@@ -167,8 +167,8 @@ Resources:
           Value: LinusAutoVM01-psn
   EIPaddress:
     Type: 'AWS::EC2::EIP'
-    InstanceId: !Ref EC2Instance
     Properties: 
+      InstanceId: !Ref EC2Instance
       Domain: vpc
   EIPAssoc:
     Type: 'AWS::EC2::EIPAssociation'
