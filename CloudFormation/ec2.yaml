@@ -154,15 +154,6 @@ Resources:
       Tags: 
         - Key: Name
           Value: !Ref 'LinusAutoVM01name'
-  PublicIPNetworkInterface:
-    Type: AWS::EC2::NetworkInterface
-    Properties:
-      GroupSet:
-        - !Ref 'InstanceSecurityGroup'
-      SubnetId: !Ref PublicSubnet
-      Tags: 
-        - Key: Name
-          Value: !Ref 'LinusAutoVM01name'
   EC2Instance:
     Type: 'AWS::EC2::Instance'
     Properties:
@@ -181,8 +172,6 @@ Resources:
       NetworkInterfaces:
         - NetworkInterfaceId: !Ref 'InstanceNetworkInterface'
           DeviceIndex: '0'
-        - NetworkInterfaceId: !Ref 'PublicIPNetworkInterface'
-          DeviceIndex: '1'
       KeyName: !Ref KeyName
       ImageId: !FindInMap 
         - AWSRegionArch2AMI
