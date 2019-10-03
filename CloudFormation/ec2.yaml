@@ -1,6 +1,6 @@
 ---
 AWSTemplateFormatVersion: 2010-09-09
-Description: AWS CloudFormation Template EC2InstanceWithSecurityGroup.
+Description: AWS CloudFormation Template EC2Instance With Netwoking.
 Parameters:
   VpcCIDR:
     Description: Please enter the IP range (CIDR notation) for this VPC
