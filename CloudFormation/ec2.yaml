@@ -148,7 +148,6 @@ Resources:
     Properties: 
       GroupSet:
         - !Ref 'InstanceSecurityGroup'
-      InterfaceType: efa
       SourceDestCheck: True
       PrivateIpAddress: 10.0.0.20
       SubnetId: !Ref PrivateSubnet
