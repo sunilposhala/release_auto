@@ -145,6 +145,16 @@ Resources:
           FromPort: '22'
           ToPort: '22'
           CidrIp: !Ref SSHLocation
+  InstanceNetworkInterface:
+    Type: AWS::EC2::NetworkInterface
+    Properties: 
+    InterfaceType: efa
+    PrivateIpAddress: 10.0.0.20
+    SourceDestCheck: True
+    SubnetId: !Ref PrivateSubnet
+    Tags: 
+      - Key: Name
+        Value: !Ref 'LinusAutoVM01name'
   EC2Instance:
     Type: 'AWS::EC2::Instance'
     Properties:
@@ -160,11 +170,10 @@ Resources:
           Value: 'True'
         - Key: Region
           Value: eu-central-1
-      NetworkInterface:
+      NetworkInterfaces:
         AssociatePublicIpAddress: True
         NetworkInterfaceId: DEV-int
-        PrivateIpAddress: 10.0.0.20
-        SubnetId: !Ref PrivateSubnet
+        SubnetId: !Ref PublicSubnet
       SecurityGroups:
         - !Ref InstanceSecurityGroup
       KeyName: !Ref KeyName
