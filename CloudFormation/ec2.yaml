@@ -154,6 +154,17 @@ Resources:
       Tags: 
         - Key: Name
           Value: !Ref 'LinusAutoVM01name'
+  PublicIPNetworkInterface:
+    Type: AWS::EC2::NetworkInterface
+      Properties:
+      GroupSet:
+        - !Ref: 'InstanceSecurityGroup'
+      AssociatePublicIpAddress: 'true'
+      DeleteOnTermination: 'true'
+      SubnetId: !Ref: PublicSubnet
+      Tags: 
+        - Key: Name
+          Value: !Ref ''LinusAutoVM01name'-PIP'
   EC2Instance:
     Type: 'AWS::EC2::Instance'
     Properties:
@@ -172,6 +183,8 @@ Resources:
       NetworkInterfaces:
         - NetworkInterfaceId: !Ref 'InstanceNetworkInterface'
           DeviceIndex: '0'
+        - NetworkInterfaceId: !Ref 'PublicIPNetworkInterface'
+          DeviceIndex: '1'
       KeyName: !Ref KeyName
       ImageId: !FindInMap 
         - AWSRegionArch2AMI
@@ -213,5 +226,5 @@ Outputs:
     Description: Public IP address of EC2 instance
     Value: !GetAtt 
       - EC2Instance
-      - PublicIp
+      - PublicIPNetworkInterface
 
