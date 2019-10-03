@@ -150,6 +150,7 @@ Resources:
     Properties: 
       InterfaceType: efa
       SourceDestCheck: True
+      PrivateIpAddress: 10.0.0.20
       SubnetId: !Ref PrivateSubnet
       Tags: 
         - Key: Name
@@ -170,8 +171,7 @@ Resources:
         - Key: Region
           Value: eu-central-1
       NetworkInterfaces:
-        AssociatePublicIpAddress: True
-        SubnetId: !Ref PublicSubnet
+        - !Ref InstanceNetworkInterface
       SecurityGroups:
         - !Ref InstanceSecurityGroup
       KeyName: !Ref KeyName
