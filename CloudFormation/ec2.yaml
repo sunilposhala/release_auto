@@ -158,7 +158,7 @@ Resources:
     Type: AWS::EC2::NetworkInterface
     Properties:
       GroupSet:
-        - !Ref: 'InstanceSecurityGroup'
+        - !Ref 'InstanceSecurityGroup'
       AssociatePublicIpAddress: 'true'
       DeleteOnTermination: 'true'
       SubnetId: !Ref PublicSubnet
