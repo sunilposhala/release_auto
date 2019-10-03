@@ -183,8 +183,6 @@ Resources:
           DeviceIndex: '0'
         - NetworkInterfaceId: !Ref 'PublicIPNetworkInterface'
           DeviceIndex: '1'
-          AssociatePublicIpAddress: 'true'
-          DeleteOnTermination: 'true'
       KeyName: !Ref KeyName
       ImageId: !FindInMap 
         - AWSRegionArch2AMI
