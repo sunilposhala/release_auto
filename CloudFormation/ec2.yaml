@@ -148,6 +148,8 @@ Resources:
   InstanceNetworkInterface:
     Type: AWS::EC2::NetworkInterface
     Properties: 
+      GroupSet:
+        - !Ref 'InstanceSecurityGroup'
       InterfaceType: efa
       SourceDestCheck: True
       PrivateIpAddress: 10.0.0.20
@@ -171,7 +173,10 @@ Resources:
         - Key: Region
           Value: eu-central-1
       SecurityGroups:
-        - !Ref InstanceSecurityGroup
+        - !Ref 'InstanceSecurityGroup'
+      NetworkInterfaces:
+        - NetworkInterfaceId: !Ref 'InstanceNetworkInterface'
+        - DeviceIndex: '0'
       KeyName: !Ref KeyName
       ImageId: !FindInMap 
         - AWSRegionArch2AMI
@@ -180,7 +185,6 @@ Resources:
           - AWSInstanceType2Arch
           - !Ref InstanceType
           - Arch
-    DependsOn: InstanceNetworkInterface
 Outputs:
   VPC:
     Description: A reference to the created VPC
