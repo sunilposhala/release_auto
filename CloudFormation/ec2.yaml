@@ -159,7 +159,6 @@ Resources:
     Properties:
       GroupSet:
         - !Ref 'InstanceSecurityGroup'
-      DeleteOnTermination: 'true'
       SubnetId: !Ref PublicSubnet
       Tags: 
         - Key: Name
@@ -185,6 +184,7 @@ Resources:
         - NetworkInterfaceId: !Ref 'PublicIPNetworkInterface'
           DeviceIndex: '1'
           AssociatePublicIpAddress: 'true'
+          DeleteOnTermination: 'true'
       KeyName: !Ref KeyName
       ImageId: !FindInMap 
         - AWSRegionArch2AMI
