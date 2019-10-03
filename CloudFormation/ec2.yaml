@@ -161,7 +161,7 @@ Resources:
         - !Ref: 'InstanceSecurityGroup'
       AssociatePublicIpAddress: 'true'
       DeleteOnTermination: 'true'
-      SubnetId: !Ref: PublicSubnet
+      SubnetId: !Ref PublicSubnet
       Tags: 
         - Key: Name
           Value: !Ref ''LinusAutoVM01name'-PIP'
