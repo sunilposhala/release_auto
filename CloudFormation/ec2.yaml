@@ -5,15 +5,15 @@ Parameters:
   VpcCIDR:
     Description: Please enter the IP range (CIDR notation) for this VPC
     Type: String
-    Default: 10.192.0.0/24
+    Default: 10.192.0.0/8
   PublicSubnetCIDR:
     Description: Please enter the IP range (CIDR notation) for the public subnet in the first Availability Zone
     Type: String
-    Default: 10.192.10.0/24
+    Default: 10.192.0.0/8
   PrivateSubnetCIDR:
     Description: Please enter the IP range (CIDR notation) for the private subnet in the first Availability Zone
     Type: String
-    Default: 10.192.20.0/24
+    Default: 10.192.0.0/8
   KeyName:
     Description: Name of an existing EC2 KeyPair to enable SSH access to the instance
     Type: String
