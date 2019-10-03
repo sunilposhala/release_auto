@@ -170,8 +170,6 @@ Resources:
           Value: 'True'
         - Key: Region
           Value: eu-central-1
-      NetworkInterfaces:
-        - !Ref InstanceNetworkInterface
       SecurityGroups:
         - !Ref InstanceSecurityGroup
       KeyName: !Ref KeyName
@@ -182,7 +180,7 @@ Resources:
           - AWSInstanceType2Arch
           - !Ref InstanceType
           - Arch
-
+    DependsOn: InstanceNetworkInterface
 Outputs:
   VPC:
     Description: A reference to the created VPC
