@@ -154,6 +154,29 @@ Resources:
       Tags: 
         - Key: Name
           Value: !Ref 'LinusAutoVM01name'
+  InstanceNetworkInterface2:
+    Type: AWS::EC2::NetworkInterface
+    Properties: 
+      GroupSet:
+        - !Ref 'InstanceSecurityGroup'
+      SourceDestCheck: True
+      PrivateIpAddress: 10.0.0.21
+      SubnetId: !Ref PublicSubnet
+      Tags: 
+        - Key: Name
+          Value: LinusAutoVM01-psn
+  EIPaddress:
+    Type: 'AWS::EC2::EIP'
+    InstanceId: !Ref EC2Instance
+    Properties: 
+      Domain: vpc
+  EIPAssoc:
+    Type: 'AWS::EC2::EIPAssociation'
+    Properties:
+      InstanceId: !Ref EC2Instance
+      Properties:
+				NetworkInterfaceId: !Ref InstanceNetworkInterface2
+				EIP: !Ref EIPaddress
   EC2Instance:
     Type: 'AWS::EC2::Instance'
     Properties:
@@ -172,6 +195,8 @@ Resources:
       NetworkInterfaces:
         - NetworkInterfaceId: !Ref 'InstanceNetworkInterface'
           DeviceIndex: '0'
+        - NetworkInterfaceId: !Ref 'InstanceNetworkInterface2'
+          DeviceIndex: '1'
       KeyName: !Ref KeyName
       ImageId: !FindInMap 
         - AWSRegionArch2AMI
@@ -204,6 +229,15 @@ Outputs:
     Value: !GetAtt 
       - EC2Instance
       - AvailabilityZone
-  
+  PublicDNS:
+    Description: Public DNSName of EC2 instance
+    Value: !GetAtt 
+      - EC2Instance
+      - PublicDnsName
+  PublicIP:
+    Description: Public IP address of EC2 instance
+    Value: !GetAtt 
+      - EC2Instance
+      - PublicIp
 
 
