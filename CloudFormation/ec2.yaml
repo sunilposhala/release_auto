@@ -160,7 +160,7 @@ Resources:
       GroupSet:
         - !Ref 'InstanceSecurityGroup'
       SourceDestCheck: True
-      PrivateIpAddress: 10.0.0.21
+      PrivateIpAddress: 10.0.0.13
       SubnetId: !Ref PublicSubnet
       Tags: 
         - Key: Name
