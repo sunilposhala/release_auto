@@ -29,8 +29,6 @@ Parameters:
   SSHLocation:
     Description: The IP address range used to SSH to the EC2 instances
     Type: String
-    MinLength: '9'
-    MaxLength: '18'
     Default: 0.0.0.0/0
   Environment:
     Type: String
@@ -147,13 +145,6 @@ Resources:
           FromPort: '22'
           ToPort: '22'
           CidrIp: !Ref SSHLocation
-  IPAddress:
-    Type: 'AWS::EC2::EIP'
-  IPAssoc:
-    Type: 'AWS::EC2::EIPAssociation'
-    Properties:
-      InstanceId: !Ref EC2Instance
-      EIP: !Ref IPAddress
   EC2Instance:
     Type: 'AWS::EC2::Instance'
     Properties:
@@ -169,6 +160,11 @@ Resources:
           Value: 'True'
         - Key: Region
           Value: eu-central-1
+      InstanceNetworkInterface:
+        AssociatePublicIpAddress: True
+        NetworkInterfaceId: DEV-int
+        PrivateIpAddress: 10.0.0.20
+        SubnetId: !Ref PrivateSubnet
       SecurityGroups:
         - !Ref InstanceSecurityGroup
       KeyName: !Ref KeyName
