@@ -130,16 +130,11 @@ Resources:
     Properties:
       RouteTableId: !Ref PrivateRouteTable
       SubnetId: !Ref PrivateSubnet
-  NoIngressSecurityGroup:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      GroupName: "no-ingress-sg"
-      GroupDescription: "Security group with no ingress rule"
-      VpcId: !Ref VPC
   InstanceSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
       GroupDescription: Enable SSH access via port 22
+      VpcId: !Ref VPC
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: '22'
@@ -177,7 +172,7 @@ Resources:
           Value: eu-central-1
       NetworkInterfaces:
         - NetworkInterfaceId: !Ref 'InstanceNetworkInterface'
-        - DeviceIndex: '0'
+          DeviceIndex: '0'
       KeyName: !Ref KeyName
       ImageId: !FindInMap 
         - AWSRegionArch2AMI
@@ -202,9 +197,6 @@ Outputs:
   PrivateSubnet:
     Description: A reference to the private subnet in the 1st Availability Zone
     Value: !Ref PrivateSubnet
-  NoIngressSecurityGroup:
-    Description: Security group with no ingress rule
-    Value: !Ref NoIngressSecurityGroup
   InstanceId:
     Description: InstanceId of EC2 instance
     Value: !Ref EC2Instance
