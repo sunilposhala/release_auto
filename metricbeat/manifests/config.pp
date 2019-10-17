@@ -24,12 +24,12 @@ class metricbeat::config inherits metricbeat {
   })
 
   # file{'metricbeat.yml':
-  #   ensure       => $metricbeat::ensure,
-  #   path         => '/etc/metricbeat/metricbeat.yml',
-  #   owner        => 'root',
-  #   group        => 'root',
-  #   mode         => '0644',
-  #   content      => inline_template('<%= @metricbeat_config.to_yaml() %>'),
-  #   validate_cmd => $validate_cmd,
+  #  ensure       => $metricbeat::ensure,
+  #  path         => '/etc/metricbeat/metricbeat.yml',
+  #  owner        => 'root',
+  #  group        => 'root',
+  #  mode         => '0644',
+  #  content      => inline_template('<%= @metricbeat_config.to_yaml() %>'),
+  #  validate_cmd => $validate_cmd,
   #}
 }

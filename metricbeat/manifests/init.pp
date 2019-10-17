@@ -14,9 +14,9 @@
 #        'hosts'      => ['http://localhost'],
 #      },
 #    ],
-  outputs => {
+   outputs => {
       'elasticsearch' => {
-        'hosts' => ['3.16.128.26:9200'],
+        'hosts' => ['10.80.83.8:9200'],
       },
     },
   }
@@ -134,9 +134,6 @@ class metricbeat(
     -> Class['metricbeat::install']
     -> Class['metricbeat::config']
     -> Class['metricbeat::service']
-
-    Class['metricbeat::install']
-    -> Class['metricbeat::service']
   }
   else {
     Anchor['metricbeat::begin']
@@ -147,13 +144,13 @@ class metricbeat(
   anchor{'metricbeat::begin':}
   class{'metricbeat::config':}
   class{'metricbeat::install':}
-#  class{'metricbeat::service':}
+  class{'metricbeat::service':}
 
 file { '/etc/metricbeat/metricbeat.yml': # Path to the file on client machine
       ensure => file,
       mode   => '0755',
       source => 'puppet:///modules/metricbeat/metricbeat.yml', # Path to the custom file on puppet server
     }
-  class{'metricbeat::service':}
+  #class{'metricbeat::service':}
 
 }

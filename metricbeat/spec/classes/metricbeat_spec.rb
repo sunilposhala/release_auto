@@ -84,7 +84,7 @@ describe 'metricbeat' do
               gpgkey: 'https://artifacts.elastic.co/GPG-KEY-elasticsearch',
             )
           end
-        when 'Debian'
+        when 'Ubuntu'
           it { is_expected.to contain_class('apt') }
 
           it do
