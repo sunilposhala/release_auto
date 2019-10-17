@@ -144,7 +144,7 @@ class metricbeat(
   anchor{'metricbeat::begin':}
   class{'metricbeat::config':}
   class{'metricbeat::install':}
-  class{'metricbeat::service':}
+  #class{'metricbeat::service':}
 
 file { '/etc/metricbeat/metricbeat.yml': # Path to the file on client machine
       ensure => file,
