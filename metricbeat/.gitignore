@@ -1,4 +1,3 @@
-.git/
 .*.sw[op]
 .metadata
 .yardoc
@@ -14,14 +13,10 @@
 /Gemfile.lock
 /junit/
 /log/
+/log/
 /pkg/
 /spec/fixtures/manifests/
 /spec/fixtures/modules/
 /tmp/
 /vendor/
-/convert_report.txt
-/update_report.txt
-.DS_Store
-.project
-.envrc
-/inventory.yaml
+

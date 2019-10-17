@@ -7,11 +7,19 @@
   "source": "https://github.com/corey-hammerton/puppet-metricbeat",
   "project_page": "https://github.com/corey-hammerton/puppet-metricbeat",
   "issues_url": "https://github.com/corey-hammerton/puppet-metricbeat/issues",
-  "tags": ["metricbeat", "elasticsearch", "logstash", "elastic"],
   "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":">= 4.13.0 < 5.0.0"},
-    {"name":"puppetlabs-apt","version_requirement":">= 4.0.0 < 5.0.0"},
-    {"name":"darin-zypprepo","version_requirement":">= 1.0.0 < 2.0.0"}
+    {
+      "name": "puppetlabs-stdlib",
+      "version_requirement": ">= 4.13.0 < 5.0.0"
+    },
+    {
+      "name": "puppetlabs-apt",
+      "version_requirement": ">= 4.0.0 < 5.0.0"
+    },
+    {
+      "name": "darin-zypprepo",
+      "version_requirement": ">= 1.0.0 < 2.0.0"
+    }
   ],
   "operatingsystem_support": [
     {
@@ -68,5 +76,14 @@
       "name": "puppet",
       "version_requirement": ">= 4.7.0 < 6.0.0"
     }
-  ]
+  ],
+  "tags": [
+    "metricbeat",
+    "elasticsearch",
+    "logstash",
+    "elastic"
+  ],
+  "pdk-version": "1.13.0",
+  "template-url": "pdk-default#1.13.0",
+  "template-ref": "1.13.0-0-g66e1443"
 }

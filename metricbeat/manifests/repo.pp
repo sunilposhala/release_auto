@@ -6,7 +6,7 @@
 # @summary Manages the relevant repo manager on the target node.
 class metricbeat::repo inherits metricbeat {
   case $facts['osfamily'] {
-    'Debian': {
+    'Ubuntu': {
       include ::apt
 
       if !defined(Apt::Source['beats']) {
