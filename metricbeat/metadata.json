@@ -1,0 +1,72 @@
+{
+  "name": "roshan-metricbeat",
+  "version": "5.6.6",
+  "author": "roshan",
+  "summary": "A module to install, configure and manage the Metricbeat collector.",
+  "license": "Apache-2.0",
+  "source": "https://github.com/corey-hammerton/puppet-metricbeat",
+  "project_page": "https://github.com/corey-hammerton/puppet-metricbeat",
+  "issues_url": "https://github.com/corey-hammerton/puppet-metricbeat/issues",
+  "tags": ["metricbeat", "elasticsearch", "logstash", "elastic"],
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 4.13.0 < 5.0.0"},
+    {"name":"puppetlabs-apt","version_requirement":">= 4.0.0 < 5.0.0"},
+    {"name":"darin-zypprepo","version_requirement":">= 1.0.0 < 2.0.0"}
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "OracleLinux",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "6"
+      ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "8"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "16.04"
+      ]
+    },
+    {
+      "operatingsystem": "Fedora",
+      "operatingsystemrelease": [
+        "25"
+      ]
+    },
+    {
+      "operatingsystem": "SLES",
+      "operatingsystemrelease": [
+        "12"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.7.0 < 6.0.0"
+    }
+  ]
+}
