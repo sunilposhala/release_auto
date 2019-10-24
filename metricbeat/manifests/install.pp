@@ -12,7 +12,7 @@ class metricbeat::install inherits metricbeat {
         $metricbeat_package_provider = 'rpm'
         $metricbeat_package_file     = "metricbeat-6.1.1-x86_64.rpm"
       }
-}
+  }
 
   if $metricbeat::ensure == 'present' {
     $package_ensure = $metricbeat::package_ensure
@@ -29,6 +29,12 @@ class metricbeat::install inherits metricbeat {
   }
 
   file { ["/opt/metricbeat", $metricbeat_install_path]:
-          ensure => directory,
-        }
+    ensure => directory,
+  }
+  file {'/etc/metricbeat/metricbeat.yml':
+    ensure => file,
+    mode   => '0755',
+    source => 'puppet:///modules/metricbeat/metricbeat.yml',
+    notify => Service['metricbeat'],
+  }
 }

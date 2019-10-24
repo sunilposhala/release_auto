@@ -17,7 +17,7 @@ class metricbeat::config inherits metricbeat {
     },
     'output'            => $metricbeat::outputs,
   })
-
+}
 class metricbeat(
   Tuple[Hash] $modules                                                = [{}],
   Hash $outputs                                                       = {},
@@ -50,11 +50,3 @@ class metricbeat(
   Boolean $service_has_restart                                        = true,
   Optional[Array[String]] $tags                                       = undef,
 )
-
-file { '/etc/metricbeat/metricbeat.yml':
-    ensure => file,
-    mode   => '0755',
-    source => 'puppet:///modules/metricbeat/metricbeat.yml',
-    notify  => Service['metricbeat']
-  }
-}

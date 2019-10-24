@@ -1,5 +1,5 @@
 # metricbeat
-class{'metricbeat':
+class metricbeat{
   contain metricbeat::install
   contain metricbeat::config
   contain metricbeat::service
