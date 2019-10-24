@@ -1,24 +1,5 @@
 # metricbeat::config
-class metricbeat::config inherits metricbeat {
-  $validate_cmd      = $metricbeat::disable_configtest ? {
-    true    => undef,
-    default => '/usr/share/metricbeat/bin/metricbeat -configtest -c %',
-  }
-  $metricbeat_config = delete_undef_values({
-    'name'              => $metricbeat::beat_name,
-    'fields'            => $metricbeat::fields,
-    'fields_under_root' => $metricbeat::fields_under_root,
-    'tags'              => $metricbeat::tags,
-    'queue_size'        => $metricbeat::queue_size,
-    'logging'           => $metricbeat::logging,
-    'processors'        => $metricbeat::processors,
-    'metricbeat'        => {
-      'modules'           => $metricbeat::modules,
-    },
-    'output'            => $metricbeat::outputs,
-  })
-}
-class metricbeat(
+class metricbeat::config (
   Tuple[Hash] $modules                                                = [{}],
   Hash $outputs                                                       = {},
   String $beat_name                                                   = $::hostname,
@@ -49,4 +30,22 @@ class metricbeat(
   Enum['enabled', 'disabled', 'running', 'unmanaged'] $service_ensure = 'enabled',
   Boolean $service_has_restart                                        = true,
   Optional[Array[String]] $tags                                       = undef,
-)
+) {
+  $validate_cmd      = disable_configtest ? {
+    true    => undef,
+    default => '/usr/share/metricbeat/bin/metricbeat -configtest -c %',
+  }
+  $metricbeat_config = delete_undef_values({
+    'name'              => beat_name,
+    'fields'            => fields,
+    'fields_under_root' => fields_under_root,
+    'tags'              => tags,
+    'queue_size'        => queue_size,
+    'logging'           => logging,
+    'processors'        => processors,
+    'metricbeat'        => {
+      'modules'         => modules,
+    },
+    'output'            => outputs,
+  })
+}
