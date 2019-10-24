@@ -4,7 +4,7 @@ class metricbeat{
   contain metricbeat::config
   contain metricbeat::service
 
-  -> Class['::foobar::install']
-  -> Class['::foobar::config']
-  ~> Class['::foobar::service']
+  -> Class['::metricbeat::install']
+  -> Class['::metricbeat::config']
+  ~> Class['::metricbeat::service']
 }
