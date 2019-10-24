@@ -21,7 +21,12 @@ class metricbeat::install inherits metricbeat {
   else {
     $package_ensure = $metricbeat::ensure
   }
-
+  archive { "/opt/metricbeat/${metricbeat_package_file}":
+    ensure  => present,
+    source  => $metricbeat_download_url,
+    creates => "${metricbeat_install_path}/6.1.1",
+    require => File['/opt/metricbeat'],
+  }
   package{'metricbeat':
     ensure   => latest,
     provider => $metricbeat_package_provider,
