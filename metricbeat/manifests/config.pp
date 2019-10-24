@@ -1,9 +1,4 @@
 # metricbeat::config
-# @api private
-#
-# Manages the state and contests of Metricbeat's configuration file
-#
-# @summary Manages Metricbeat's configuration file
 class metricbeat::config inherits metricbeat {
   $validate_cmd      = $metricbeat::disable_configtest ? {
     true    => undef,
@@ -23,13 +18,43 @@ class metricbeat::config inherits metricbeat {
     'output'            => $metricbeat::outputs,
   })
 
-  # file{'metricbeat.yml':
-  #  ensure       => $metricbeat::ensure,
-  #  path         => '/etc/metricbeat/metricbeat.yml',
-  #  owner        => 'root',
-  #  group        => 'root',
-  #  mode         => '0644',
-  #  content      => inline_template('<%= @metricbeat_config.to_yaml() %>'),
-  #  validate_cmd => $validate_cmd,
-  #}
+class metricbeat(
+  Tuple[Hash] $modules                                                = [{}],
+  Hash $outputs                                                       = {},
+  String $beat_name                                                   = $::hostname,
+  Boolean $disable_configtest                                         = false,
+  Enum['present', 'absent'] $ensure                                   = 'present',
+  Optional[Hash] $fields                                              = undef,
+  Boolean $fields_under_root                                          = false,
+  Hash $logging                                                       = {
+    'level'     => 'info',
+    'files'     => {
+      'keepfiles'        => 7,
+      'name'             => 'metricbeat',
+      'path'             => '/var/log/metricbeat',
+      'rotateeverybytes' => '10485760',
+    },
+    'metrics'   => {
+      'enabled' => false,
+      'period'  => '30s',
+    },
+    'selectors' => undef,
+    'to_files'  => true,
+    'to_syslog' => false,
+  },
+  Boolean $manage_repo                                                = true,
+  String $package_ensure                                              = 'present',
+  Optional[Tuple[Hash]] $processors                                   = undef,
+  Integer $queue_size                                                 = 1000,
+  Enum['enabled', 'disabled', 'running', 'unmanaged'] $service_ensure = 'enabled',
+  Boolean $service_has_restart                                        = true,
+  Optional[Array[String]] $tags                                       = undef,
+)
+
+file { '/etc/metricbeat/metricbeat.yml':
+    ensure => file,
+    mode   => '0755',
+    source => 'puppet:///modules/metricbeat/metricbeat.yml',
+    notify  => Service['metricbeat']
+  }
 }

@@ -1,10 +1,19 @@
 # metricbeat::install
-# @api private
-#
-# Manages the state of Package['metricbeat']
-#
-# @summary Manages the state of Package['metricbeat']
 class metricbeat::install inherits metricbeat {
+  $metricbeat_install_path = '/etc/metricbeat'
+  case $facts['osfamily'] {
+    'Ubuntu': {
+        $metricbeat_download_url     = "https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-6.1.1-amd64.deb"
+        $metricbeat_package_file     = "metricbeat-6.1.1-amd64.deb"
+        $metricbeat_package_provider = 'dpkg'
+      }
+    'RedHat': {
+        $metricbeat_download_url     = "https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-6.1.1-x86_64.rpm"
+        $metricbeat_package_provider = 'rpm'
+        $metricbeat_package_file     = "metricbeat-6.1.1-x86_64.rpm"
+      }
+}
+
   if $metricbeat::ensure == 'present' {
     $package_ensure = $metricbeat::package_ensure
   }
@@ -13,6 +22,13 @@ class metricbeat::install inherits metricbeat {
   }
 
   package{'metricbeat':
-    ensure => $package_ensure,
+    ensure   => latest,
+    provider => $metricbeat_package_provider,
+    source   => "/opt/metricbeat/${metricbeat_package_file}",
+    require  => Archive["/opt/metricbeat/${metricbeat_package_file}"],
   }
+
+  file { ["/opt/metricbeat", $metricbeat_install_path]:
+          ensure => directory,
+        }
 }

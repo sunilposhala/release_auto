@@ -1,9 +1,4 @@
 # metricbeat::service
-# @api private
-#
-# Manages the state of Service['metricbeat']
-#
-# @summary Manages the state of Service['metricbeat']
 class metricbeat::service inherits metricbeat {
   if $metricbeat::ensure == 'present' {
     case $metricbeat::service_ensure {
