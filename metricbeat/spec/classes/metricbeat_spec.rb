@@ -73,116 +73,6 @@ describe 'metricbeat' do
         end
       end
 
-      describe 'metricbeat::repo' do
-        case os_facts[:osfamily]
-        when 'RedHat'
-          it do
-            is_expected.to contain_yumrepo('beats').with(
-              baseurl: 'https://artifacts.elastic.co/packages/5.x/yum',
-              enabled: 1,
-              gpgcheck: 1,
-              gpgkey: 'https://artifacts.elastic.co/GPG-KEY-elasticsearch',
-            )
-          end
-        when 'Ubuntu'
-          it { is_expected.to contain_class('apt') }
-
-          it do
-            is_expected.to contain_apt__source('beats').with(
-              location: 'https://artifacts.elastic.co/packages/5.x/apt',
-              release: 'stable',
-              repos: 'main',
-              key: {
-                'id' => '46095ACC8548582C1A2699A9D27D666CD88E42B4',
-                'source' => 'https://artifacts.elastic.co/GPG-KEY-elasticsearch',
-              },
-            )
-          end
-        when 'SuSe'
-          it do
-            is_expected.to contain_zypprepo('beats').with(
-              baseurl: 'https://artifacts.elastic.co/packages/5.x/yum',
-              autorefresh: 1,
-              enabled: 1,
-              gpgcheck: 1,
-              gpgkey: 'https://artifacts.elastic.co/GPG-KEY-elasticsearch',
-              name: 'beats',
-              type: 'yum',
-            )
-          end
-        end
-      end
-
-      describe 'metricbeat::service' do
-        it do
-          is_expected.to contain_service('metricbeat').with(
-            ensure: 'running',
-            enable: true,
-            hasrestart: true,
-          )
-        end
-
-        describe 'with ensure = absent' do
-          let(:params) { { 'ensure' => 'absent' } }
-
-          it do
-            is_expected.to contain_service('metricbeat').with(
-              ensure: 'stopped',
-              enable: false,
-              hasrestart: true,
-            )
-          end
-        end
-
-        describe 'with service_has_restart = false' do
-          let(:params) { { 'service_has_restart' => false } }
-
-          it do
-            is_expected.to contain_service('metricbeat').with(
-              ensure: 'running',
-              enable: true,
-              hasrestart: false,
-            )
-          end
-        end
-
-        describe 'with service_ensure = disabled' do
-          let(:params) { { 'service_ensure' => 'disabled' } }
-
-          it do
-            is_expected.to contain_service('metricbeat').with(
-              ensure: 'stopped',
-              enable: false,
-              hasrestart: true,
-            )
-          end
-        end
-
-        describe 'with service_ensure = running' do
-          let(:params) { { 'service_ensure' => 'running' } }
-
-          it do
-            is_expected.to contain_service('metricbeat').with(
-              ensure: 'running',
-              enable: false,
-              hasrestart: true,
-            )
-          end
-        end
-
-        describe 'with service_ensure = unmanaged' do
-          let(:params) { { 'service_ensure' => 'unmanaged' } }
-
-          it do
-            is_expected.to contain_service('metricbeat').with(
-              ensure: nil,
-              enable: false,
-              hasrestart: true,
-            )
-          end
-        end
-      end
-
       context 'with elasticsearch output' do
         let(:params) do
           {
@@ -194,7 +84,6 @@ describe 'metricbeat' do
         it { is_expected.to compile }
         it { is_expected.to contain_class('metricbeat::config').that_notifies('Class[metricbeat::service]') }
         it { is_expected.to contain_class('metricbeat::install').that_comes_before('Class[metricbeat::config]').that_notifies('Class[metricbeat::service]') }
-        it { is_expected.to contain_class('metricbeat::repo').that_comes_before('Class[metricbeat::install]') }
         it { is_expected.to contain_class('metricbeat::service') }
       end
 
@@ -210,7 +99,6 @@ describe 'metricbeat' do
         it { is_expected.to compile }
         it { is_expected.to contain_class('metricbeat::config').that_notifies('Class[metricbeat::service]') }
         it { is_expected.to contain_class('metricbeat::install').that_comes_before('Class[metricbeat::config]').that_notifies('Class[metricbeat::service]') }
-        it { is_expected.not_to contain_class('metricbeat::repo') }
         it { is_expected.to contain_class('metricbeat::service') }
       end
 

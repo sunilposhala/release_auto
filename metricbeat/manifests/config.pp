@@ -44,8 +44,8 @@ class metricbeat::config (
     'logging'           => logging,
     'processors'        => processors,
     'metricbeat'        => {
-      'modules'         => modules,
-    },
+    'modules'         => modules,
+  },
     'output'            => outputs,
   })
 }

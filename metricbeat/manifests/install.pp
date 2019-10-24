@@ -16,9 +16,6 @@ class metricbeat::install inherits metricbeat {
   }
 
   if $metricbeat::ensure == 'present' {
-    $package_ensure = $metricbeat::package_ensure
-  }
-  else {
     $package_ensure = $metricbeat::ensure
   }
   archive { "/opt/metricbeat/${metricbeat_package_file}":
