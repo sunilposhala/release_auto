@@ -226,8 +226,7 @@ describe 'metricbeat' do
         it { is_expected.to compile }
         it { is_expected.to contain_class('metricbeat::config') }
         it { is_expected.to contain_class('metricbeat::install') }
-        it { is_expected.to contain_class('metricbeat::repo').that_comes_before('Class[metricbeat::install]') }
-        #it { is_expected.to contain_class('metricbeat::service').that_comes_before('Class[metricbeat::install]') }
+        it { is_expected.to contain_class('metricbeat::service').that_comes_before('Class[metricbeat::install]') }
       end
 
       context 'with ensure = idontknow' do
