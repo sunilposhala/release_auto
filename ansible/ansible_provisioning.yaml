@@ -1,0 +1,79 @@
+---
+- name: Create Azure VM using Ansible
+  hosts: localhost
+  connection: local
+  vars:
+    azure_region: westeurope
+    resource_group_name: automation-class-ansible
+    NSG_name: automation-class-nsg
+    vnet_name: vnet-auto-class
+    vnet_address: "10.0.0.0/16"
+    subnet_name: subnet-auto-class
+    subnet_address: "10.0.1.0/24"
+    allocation_PIP: Static
+    PIP_name: Auto-Class-PIP
+    machine_name: Ansible-Machine
+    image_offer: CentOS
+    image_publisher: OpenLogic
+    image_sku: '7.5'
+    instance_type: Standard_B1s
+  tasks:
+  - name: Create resource group
+    azure_rm_resourcegroup:
+      name: "{{resource_group_name}}"
+      location: "{{azure_region}}"
+  - name: Create virtual network
+    azure_rm_virtualnetwork:
+      resource_group: "{{resource_group_name}}"
+      name: "{{vnet_name}}"
+      address_prefixes: "{{vnet_address}}"
+  - name: Add subnet
+    azure_rm_subnet:
+      resource_group: "{{resource_group_name}}"
+      name: "{{subnet_name}}"
+      address_prefix: "{{subnet_address}}"
+      virtual_network: "{{vnet_name}}"
+  - name: Create public IP address
+    azure_rm_publicipaddress:
+      resource_group: "{{resource_group_name}}"
+      allocation_method: "{{allocation_PIP}}"
+      name: "{{PIP_name}}"
+    register: output_ip_address
+  - name: Dump public IP for VM which will be created
+    debug:
+      msg: "The public IP is {{ output_ip_address.state.ip_address }}."
+  - name: Create Network Security Group that allows SSH
+    azure_rm_securitygroup:
+      resource_group: "{{resource_group_name}}"
+      name: "{{NSG_name}}"
+      rules:
+        - name: SSH
+          protocol: Tcp
+          destination_port_range: 22
+          access: Allow
+          priority: 1001
+          direction: Inbound
+  - name: Create virtual network interface card
+    azure_rm_networkinterface:
+      resource_group: "{{resource_group_name}}"
+      name: NetworkCard
+      virtual_network: "{{vnet_name}}"
+      subnet: "{{subnet_name}}"
+      public_ip_name: "{{PIP_name}}"
+      security_group: "{{NSG_name}}"
+  - name: Create VM
+    azure_rm_virtualmachine:
+      resource_group: "{{resource_group_name}}"
+      name: "{{machine_name}}"
+      vm_size: "{{instance_type}}"
+      admin_username: azureuser
+      ssh_password_enabled: false
+      ssh_public_keys:
+        - path: /home/azureuser/.ssh/authorized_keys
+          key_data: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDcZYXWcIkwIV9mQvQeM+TK++MfK+naDr2YMu4XHZQ+10902STCPfkFy+OjJsXe9/5Y5uIjtVU/Jq1DJ8vhjh9Sx7mv4x9HMbGMnCOulgLh8G/Ap9jEH13se7HIf3M4YD+HJmXF/Wg9bsrGJsa2TmgdauO32L8lgjNCzzt/swoARAVMMyFySKw1CMT2SJ2FF+Im7eavfDeSIoWZQ8v2SsY7SVDIZfTv11oGxgP4dLcuROM5lQqfrKCkW9OMVIsJSbSTTuLKvtsJgG2esPNb0RTK/afViwautgk5W0Zxyd3vWSX+ufC1rrDgs3D0HtrABBuiJyP649fVjQBA1IvdWZo1 ansible@localhost.localdomain
+      network_interfaces: NetworkCard
+      image:
+        offer: "{{image_offer}}"
+        publisher: "{{image_publisher}}"
+        sku: "{{image_sku}}"
+        version: latest
